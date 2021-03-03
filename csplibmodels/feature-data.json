@@ -1,0 +1,289 @@
+[ {
+  "bound" : 20222,
+  "nbSolutions" : 1
+}, {
+  "bound" : 19928,
+  "nbSolutions" : 2
+}, {
+  "bound" : 19682,
+  "nbSolutions" : 3
+}, {
+  "bound" : 19388,
+  "nbSolutions" : 4
+}, {
+  "bound" : 19382,
+  "nbSolutions" : 5
+}, {
+  "bound" : 19358,
+  "nbSolutions" : 6
+}, {
+  "bound" : 19354,
+  "nbSolutions" : 7
+}, {
+  "bound" : 19286,
+  "nbSolutions" : 8
+}, {
+  "bound" : 19250,
+  "nbSolutions" : 9
+}, {
+  "bound" : 19238,
+  "nbSolutions" : 10
+}, {
+  "bound" : 19228,
+  "nbSolutions" : 11
+}, {
+  "bound" : 19214,
+  "nbSolutions" : 12
+}, {
+  "bound" : 19172,
+  "nbSolutions" : 13
+}, {
+  "bound" : 19142,
+  "nbSolutions" : 14
+}, {
+  "bound" : 19120,
+  "nbSolutions" : 15
+}, {
+  "bound" : 18964,
+  "nbSolutions" : 16
+}, {
+  "bound" : 18934,
+  "nbSolutions" : 17
+}, {
+  "bound" : 18856,
+  "nbSolutions" : 18
+}, {
+  "bound" : 18842,
+  "nbSolutions" : 19
+}, {
+  "bound" : 18820,
+  "nbSolutions" : 20
+}, {
+  "bound" : 18818,
+  "nbSolutions" : 21
+}, {
+  "bound" : 18794,
+  "nbSolutions" : 22
+}, {
+  "bound" : 18746,
+  "nbSolutions" : 23
+}, {
+  "bound" : 18724,
+  "nbSolutions" : 25
+}, {
+  "bound" : 18688,
+  "nbSolutions" : 26
+}, {
+  "bound" : 18580,
+  "nbSolutions" : 27
+}, {
+  "bound" : 18550,
+  "nbSolutions" : 28
+}, {
+  "bound" : 18542,
+  "nbSolutions" : 29
+}, {
+  "bound" : 18520,
+  "nbSolutions" : 30
+}, {
+  "bound" : 18514,
+  "nbSolutions" : 31
+}, {
+  "bound" : 18460,
+  "nbSolutions" : 32
+}, {
+  "bound" : 18430,
+  "nbSolutions" : 33
+}, {
+  "bound" : 18424,
+  "nbSolutions" : 34
+}, {
+  "bound" : 18394,
+  "nbSolutions" : 35
+}, {
+  "bound" : 18388,
+  "nbSolutions" : 36
+}, {
+  "bound" : 18386,
+  "nbSolutions" : 37
+}, {
+  "bound" : 18382,
+  "nbSolutions" : 38
+}, {
+  "bound" : 18378,
+  "nbSolutions" : 39
+}, {
+  "bound" : 18332,
+  "nbSolutions" : 40
+}, {
+  "bound" : 18292,
+  "nbSolutions" : 41
+}, {
+  "bound" : 18280,
+  "nbSolutions" : 42
+}, {
+  "bound" : 18278,
+  "nbSolutions" : 43
+}, {
+  "bound" : 18248,
+  "nbSolutions" : 44
+}, {
+  "bound" : 18244,
+  "nbSolutions" : 45
+}, {
+  "bound" : 18200,
+  "nbSolutions" : 46
+}, {
+  "bound" : 18198,
+  "nbSolutions" : 47
+}, {
+  "bound" : 18192,
+  "nbSolutions" : 48
+}, {
+  "bound" : 18184,
+  "nbSolutions" : 49
+}, {
+  "bound" : 18170,
+  "nbSolutions" : 50
+}, {
+  "bound" : 18164,
+  "nbSolutions" : 51
+}, {
+  "bound" : 18148,
+  "nbSolutions" : 52
+}, {
+  "bound" : 18146,
+  "nbSolutions" : 53
+}, {
+  "bound" : 18134,
+  "nbSolutions" : 54
+}, {
+  "bound" : 18108,
+  "nbSolutions" : 55
+}, {
+  "bound" : 18106,
+  "nbSolutions" : 56
+}, {
+  "bound" : 18074,
+  "nbSolutions" : 57
+}, {
+  "bound" : 18068,
+  "nbSolutions" : 58
+}, {
+  "bound" : 18012,
+  "nbSolutions" : 59
+}, {
+  "bound" : 18002,
+  "nbSolutions" : 60
+}, {
+  "bound" : 17990,
+  "nbSolutions" : 61
+}, {
+  "bound" : 17984,
+  "nbSolutions" : 62
+}, {
+  "bound" : 17982,
+  "nbSolutions" : 64
+}, {
+  "bound" : 17974,
+  "nbSolutions" : 65
+}, {
+  "bound" : 17960,
+  "nbSolutions" : 66
+}, {
+  "bound" : 17950,
+  "nbSolutions" : 67
+}, {
+  "bound" : 17946,
+  "nbSolutions" : 68
+}, {
+  "bound" : 17924,
+  "nbSolutions" : 69
+}, {
+  "bound" : 17920,
+  "nbSolutions" : 70
+}, {
+  "bound" : 17904,
+  "nbSolutions" : 71
+}, {
+  "bound" : 17900,
+  "nbSolutions" : 72
+}, {
+  "bound" : 17890,
+  "nbSolutions" : 73
+}, {
+  "bound" : 17886,
+  "nbSolutions" : 74
+}, {
+  "bound" : 17884,
+  "nbSolutions" : 76
+}, {
+  "bound" : 17878,
+  "nbSolutions" : 77
+}, {
+  "bound" : 17870,
+  "nbSolutions" : 78
+}, {
+  "bound" : 17868,
+  "nbSolutions" : 79
+}, {
+  "bound" : 17860,
+  "nbSolutions" : 80
+}, {
+  "bound" : 17848,
+  "nbSolutions" : 81
+}, {
+  "bound" : 17844,
+  "nbSolutions" : 82
+}, {
+  "bound" : 17838,
+  "nbSolutions" : 83
+}, {
+  "bound" : 17822,
+  "nbSolutions" : 84
+}, {
+  "bound" : 17820,
+  "nbSolutions" : 85
+}, {
+  "bound" : 17802,
+  "nbSolutions" : 86
+}, {
+  "bound" : 17792,
+  "nbSolutions" : 87
+}, {
+  "bound" : 17788,
+  "nbSolutions" : 88
+}, {
+  "bound" : 17786,
+  "nbSolutions" : 89
+}, {
+  "bound" : 17768,
+  "nbSolutions" : 90
+}, {
+  "bound" : 17756,
+  "nbSolutions" : 91
+}, {
+  "bound" : 17752,
+  "nbSolutions" : 93
+}, {
+  "bound" : 17742,
+  "nbSolutions" : 94
+}, {
+  "bound" : 17738,
+  "nbSolutions" : 95
+}, {
+  "bound" : 17724,
+  "nbSolutions" : 96
+}, {
+  "bound" : 17714,
+  "nbSolutions" : 97
+}, {
+  "bound" : 17710,
+  "nbSolutions" : 98
+}, {
+  "bound" : 17708,
+  "nbSolutions" : 99
+}, {
+  "bound" : 17702,
+  "nbSolutions" : 102
+} ]

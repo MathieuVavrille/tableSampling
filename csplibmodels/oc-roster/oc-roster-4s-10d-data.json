@@ -1,0 +1,10 @@
+[ {
+  "bound" : 1,
+  "nbSolutions" : 136
+}, {
+  "bound" : 2,
+  "nbSolutions" : 2099
+}, {
+  "bound" : 3,
+  "nbSolutions" : 10000
+} ]
