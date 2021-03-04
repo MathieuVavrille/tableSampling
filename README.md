@@ -36,3 +36,6 @@ There are two python scripts in `scripts` to either process the pvalue or the ti
 
 The first script if this folder is `heat_maps.py`. It takes as parameter the file with the data (output from the java code), and outputs three svg files with the heat maps. To change the parameters, one should modify directly the code, line 69 (last one) to specify different values for the pivot, number of variables or probability fixed when generating the heat maps.
 
+The second script is the one to print the pvalue graphs, `pvalue_graphs.py`. It takes as parameter the file with the data, and outputs the four graphs as an svg file of the different models for different parameters. To change the graphs saved, one should change the main function (change the parameters, or the name of the models).
+
+In the folder `scripts` there are also the results of the computations done by ourselves, in the files `samplerTimes.json` and `samplerPvalue.json`. These two files can be used as input for these scripts.
