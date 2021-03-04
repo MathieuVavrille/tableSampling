@@ -29,3 +29,10 @@ The first main parameter is `-pvalue`. If not specified, the code runs running t
 All the parameters have aliases that can be found using `-help`.
 
 The output of these computations can be plotted using the python scripts in `scripts`
+
+## Python scripts
+
+There are two python scripts in `scripts` to either process the pvalue or the times. For the times it is possible to generate heat maps, and for the pvalue, it is possible to plot the pvalue after fixing two of the three parameters. It requires at least Python 3.6 to be run.
+
+The first script if this folder is `heat_maps.py`. It takes as parameter the file with the data (output from the java code), and outputs three svg files with the heat maps. To change the parameters, one should modify directly the code, line 69 (last one) to specify different values for the pivot, number of variables or probability fixed when generating the heat maps.
+

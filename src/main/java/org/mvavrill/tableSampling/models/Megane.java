@@ -31,7 +31,7 @@ public class Megane extends ModelGenerator {
   private final List<Pair<Tuples, List<Integer>> > tables;
 
   public Megane() {
-    File inputFile = new File("megane.xml");
+    File inputFile = new File("csplibmodels/megane.xml");
     Element mainXmlElement = getMainXmlElement(inputFile);
     // Domains
     final NodeList xmlDomains = ((Element) mainXmlElement.getElementsByTagName("domains").item(0)).getElementsByTagName("domain");
