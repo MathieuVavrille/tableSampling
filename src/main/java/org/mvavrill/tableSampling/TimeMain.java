@@ -56,7 +56,7 @@ public class TimeMain {
           final int invProba = new int[]{2,4,8,16,32,64,128,256}[proba_id];
           final double proba = 1/(double)invProba;
           final double probaFactor = (double)invProba*pivot;
-          final Sampler sampler = new TableHashDichotomyUnpostSampling(pivot, nbVars, proba, modGen, random);
+          final Sampler sampler = new TableHashDichotomySampling(pivot, nbVars, proba, modGen, random);
           if (!varMap.containsKey(proba)) {
             varMap.put(proba, getTimeSampler(sampler));
           }

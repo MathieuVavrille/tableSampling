@@ -56,7 +56,7 @@ public class PvalueMain {
         for (int proba_id = 0; proba_id < nbProbas; proba_id++) {
           final int invProba = new int[]{2,4,8,16,32,64,128,256}[proba_id];
           final double proba = 1/(double)invProba;
-          final Sampler sampler = new TableHashDichotomyUnpostSampling(pivot, nbVars, proba, modGen, random);
+          final Sampler sampler = new TableHashDichotomySampling(pivot, nbVars, proba, modGen, random);
           if (!varMap.containsKey(proba)) {
             varMap.put(proba, getPvaluesSampler(sampler, bound));
           }

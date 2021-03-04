@@ -6,11 +6,9 @@ import org.mvavrill.tableSampling.models.ModelAndVars;
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.Solution;
+import org.chocosolver.solver.constraints.Constraint;
 import org.chocosolver.solver.search.limits.SolutionCounter;
-import org.chocosolver.solver.constraints.extension.Tuples;
 import org.chocosolver.solver.variables.IntVar;
-
-import org.javatuples.Pair;
 
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -36,58 +34,93 @@ public class TableHashDichotomySampling extends Sampler {
   }
 
   public Solution sample() {
-    List<StoredTable> storedTables = new ArrayList<StoredTable>();
+    int nbAdded = 0;
     int nbToAdd = 1;
-    List<Solution> solutions = boundedCSP(modGen.generateModelAndVars(), pivot);
-    if (solutions.size() == 0)
-      throw new IllegalStateException("The model is not satisfiable");
+    final ModelAndVars modelAndVars = modGen.generateModelAndVars();
+    final Model model = modelAndVars.getModel();
+    final Solver solver = modelAndVars.getModel().getSolver();
+    List<Solution> solutions = solver.findAllSolutions(new SolutionCounter(model, pivot)); // fail si 0 solutions
+    solver.reset();
     while (solutions.size() == 0 || solutions.size() >= pivot) {
-      ModelAndVars modelAndVars = modGen.generateModelAndVars();
-      StoredTable.addTablesToModel(modelAndVars, storedTables);
       try {
-        modelAndVars.getModel().getSolver().propagate();
+        solver.propagate();
       } catch (Exception e) {
         throw new IllegalStateException("If there is an error here, it means that the tables added are not consistent, which should be impossible");
       }
-      List<StoredTable> newTables = new ArrayList<StoredTable>();
+      // Adding new tables
+      List<Constraint> newTables = new ArrayList<Constraint>();
       while (newTables.size() < nbToAdd) { // Add tables
         StoredTable currentTable = StoredTable.generateTable(modelAndVars, nbVariablesInTable, probaTuple, random);
-        if (currentTable == null) // If null is returned, it means that the model is instantiated
+        if (currentTable == null) {// If null is returned, it means that the model is instantiated
           break;
-        currentTable.addToModel(modelAndVars);
+        }
+        Constraint currentConstraint = currentTable.addToModel(modelAndVars);
         try {
-          modelAndVars.getModel().getSolver().propagate();
-          newTables.add(currentTable);
-        } catch (Exception e) { // An inconsistent table has been found, then reinitialize the model, add the constraint and exit the loop
-          modelAndVars = modGen.generateModelAndVars();
-          StoredTable.addTablesToModel(modelAndVars, storedTables);
-          StoredTable.addTablesToModel(modelAndVars, newTables);
+          model.getEnvironment().worldPush(); // Save the state
+          solver.propagate();
+          model.getEnvironment().worldPop();
+          newTables.add(currentConstraint);
+          nbAdded++;
+        } catch (Exception e) { // An inconsistent table has been found, then come back to previous state, remove the constraint and exit the loop
+          model.getEnvironment().worldPop();
+          model.unpost(currentConstraint);
           break;
         }
       }
-      if (newTables.size() == 0) {
+      
+      /*// Le code qui suit est très long à s'executer, je ne sais pas vraiment pourquoi. Si on enlève le solver.reset(); à la fin alors il y a une erreur de solution inconsistante/propagation mauvaise.
+      model.getEnvironment().worldPush();
+      try {
+        solver.propagate();
+      } catch (Exception e) {
+        throw new IllegalStateException("If there is an error here, it means that the tables added are not consistent, which should be impossible");
+      }
+      List<Constraint> newTables = new ArrayList<Constraint>();
+      while (newTables.size() < nbToAdd) { // Add tables
+        StoredTable currentTable = StoredTable.generateTable(modelAndVars, nbVariablesInTable, probaTuple, random);
+        if (currentTable == null) {// If null is returned, it means that the model is instantiated
+          break;
+        }
+        model.getEnvironment().worldPop();
+        //solver.reset();
+        Constraint currentConstraint = currentTable.addToModel(modelAndVars);
+        try {
+          model.getEnvironment().worldPush();
+          solver.propagate();
+          newTables.add(currentConstraint);
+        } catch (Exception e) {
+          model.unpost(currentConstraint);
+          break;
+        }
+      }
+      model.getEnvironment().worldPop();*/
+      //solver.reset();
+
+
+
+      
+      if (newTables.size() == 0) { // If no constraint was added, restart the process
         nbToAdd = 1;
         continue;
       }
-      solutions = boundedCSP(modelAndVars, pivot);
+      solutions = solver.findAllSolutions(new SolutionCounter(model, pivot)); // Bound the solutions after adding constraints
+      solver.reset();
+      int count = 0;
+
+      // Removing new tables that are inconsistent
       while (solutions.size() == 0) {
-        int tuplesToRemove = (newTables.size()+1)/2;
-        for (int i = 0; i < tuplesToRemove; i++)
-          newTables.remove(newTables.size()-1);
-        ModelAndVars modelAndVarsLoop = modGen.generateModelAndVars();
-        StoredTable.addTablesToModel(modelAndVarsLoop, storedTables);
-        StoredTable.addTablesToModel(modelAndVarsLoop, newTables);
-        solutions = boundedCSP(modelAndVarsLoop, pivot);
+        int cstrsToRemove = (newTables.size()+1)/2;
+        for (int i = 0; i < cstrsToRemove; i++) {
+          model.unpost(newTables.remove(newTables.size()-1)); // Pop the constraint from the list, and remove it from the model
+          nbAdded--;
+        }
+        solutions = solver.findAllSolutions(new SolutionCounter(model, pivot));
+        solver.reset();
       }
-      storedTables.addAll(newTables);
       nbToAdd = (newTables.size() == 0) ? 1 : newTables.size()*2;
     }
-    System.out.print(storedTables.size() + " ");
+    //System.out.print(solutions.size()*Math.pow(1/probaTuple,(double)nbAdded) + " ");
     return solutions.get(random.nextInt(solutions.size()));
-  }
-
-  private List<Solution> boundedCSP(final ModelAndVars modelAndVars, final int maxSols) {
-    return modelAndVars.getModel().getSolver().findAllSolutions(new SolutionCounter(modelAndVars.getModel(), maxSols));
   }
 
   @Override
