@@ -45,20 +45,20 @@ def plot(Xname, Xvals, Yname, Yvals, times, model_name, color):
     plt.yticks(ticks=np.arange(len(Yvals)),labels=Yvals)
     plt.ylabel(Yname)
     hm=plt.imshow(times, cmap=color,interpolation="nearest")
-    plt.colorbar(hm, label="Time (in ms)")
+    plt.colorbar(hm, label="Temps (en ms)")
 
 # save multiple heat maps
 def saved_graphs(model_name, pivot_value, var_value, proba_value):
     hm_pivot_proba(model_name, var_value)
-    plt.title("v ="+ str(var_value))
+    plt.title("nb_vars = "+ str(var_value))
     plt.savefig('heat_map_var.svg', bbox_inches='tight',pad_inches = 0)
     plt.figure()
     hm_var_pivot(model_name, proba_value)
-    plt.title("p = 1/"+str(int(1/proba_value+0.001)))
+    plt.title("probabilité = 1/"+str(int(1/proba_value+0.001)))
     plt.savefig('heat_map_proba.svg', bbox_inches='tight',pad_inches = 0)
     plt.figure()
     hm_var_proba(model_name, pivot_value)
-    plt.title("pivot ="+ str(pivot_value))
+    plt.title("pivot = "+ str(pivot_value))
     plt.savefig('heat_map_pivot.svg', bbox_inches='tight',pad_inches = 0)
     
 if __name__ == "__main__":

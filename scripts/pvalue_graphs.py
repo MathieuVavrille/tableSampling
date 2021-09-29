@@ -29,23 +29,35 @@ def variate_pivot(model, var, proba):
     all_data = obj_typed[model]['table']
     data = [(2,all_data[2][var][proba]), (4,all_data[4][var][proba]), (8,all_data[8][var][proba]), (16,all_data[16][var][proba])]
     for pivot, l in data:
-        plt.plot(l, label=f'tirage tables pivot={pivot}')
-    plt.xlabel('Nombre de tirages')
+        t = (log(pivot,2)-1)/3
+        plt.plot(l, label=f'table sampling κ={pivot}', color=((1-t)*1.0+t*186/255, (1-t)*137/255, (1-t)*137/255))
+    plt.xlabel('Number of samples')
     plt.ylabel('p-value')
     plt.yscale('log')
     plt.legend()
     plt.savefig('pivot.svg', bbox_inches='tight',pad_inches = 0)
     plt.figure()
 
+def find_first_below(l, bound):
+    lb = [i for i in l if i < bound]
+    if lb:
+        return l.index(lb[0])
+    else:
+        return -1
+
 # Plots a graph where there are different number of variables
 def variate_var(model, pivot, proba):
     random = obj_typed[model]['random']
+    print(find_first_below(random, 10**-7))
     plt.plot(random, label="RandomVarDom")
     pivots = obj_typed[model]['table'][pivot]
     data = [(2,pivots[2][proba]), (3,pivots[3][proba]), (4,pivots[4][proba]), (5,pivots[5][proba])]
     for v, l in data:
-        plt.plot(l, label=f'tirage tables v={v}')
-    plt.xlabel('Nombre de tirages')
+        t = (v-2)/3
+        plt.plot(l[:l.index(0)+2] if 0 in l else l, label=f'table sampling v={v}', color=((1-t)*1.0+t*186/255, (1-t)*137/255, (1-t)*137/255))
+        print(v, find_first_below(l, 10**-7))
+    plt.axhline(10**-7, color = "black", linestyle = "dotted")
+    plt.xlabel('Number of samples')
     plt.ylabel('p-value')
     plt.yscale('log')
     plt.legend()
@@ -59,8 +71,10 @@ def variate_proba(model, pivot, var):
     probas = obj_typed[model]['table'][pivot][var]
     data = sorted(probas.items(), reverse=True)
     for proba, data in sorted(probas.items(), reverse=True):
-        plt.plot(data, label=f'tirage tables p=1/{proba}')
-    plt.xlabel('Nombre de tirages')
+        t = (4-log(proba,2))/3
+        print(t)
+        plt.plot(data, label=f'table sampling p=1/{proba}', color=((1-t)*1.0+t*186/255, (1-t)*137/255, (1-t)*137/255))
+    plt.xlabel('Number of samples')
     plt.ylabel('p-value')
     plt.yscale('log')
     plt.legend()
@@ -73,10 +87,9 @@ def save_queens(pivot):
     plt.plot(random, label="RandomVarDom")
     all_vars = obj_typed['9-queens']['table'][pivot]
     datas = [(2,4,all_vars[2][4]), (2,8, all_vars[2][8]), (3,8, all_vars[3][8]), (4,16, all_vars[4][16])]
-    print([d[2][-10:] for d in datas])
     for (var, proba, data) in datas:
-        plt.plot(data, label=f'tirage tables v={var}, p=1/{proba}')
-    plt.xlabel('Nombre de tirages')
+        plt.plot(data, label=f'table sampling v={var}, p=1/{proba}')
+    plt.xlabel('Number of samples')
     plt.ylabel('p-value')
     plt.yscale('log')
     plt.legend()
