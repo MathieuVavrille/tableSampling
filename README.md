@@ -1,6 +1,6 @@
 # Table Sampling
 
-This repository contains the implementation of the table sampling.
+This repository contains the implementation of the table sampling. Authors Mathieu Vavrille (mathieu.vavrille@univ-nantes.fr), Charlotte Truchet (charlotte.truchet@univ-nantes.fr) and Charles Prud'homme (charles.prudhomme@imt-atlantique.fr).
 
 ## Implementation
 
