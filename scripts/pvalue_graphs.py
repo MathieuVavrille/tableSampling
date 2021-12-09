@@ -72,7 +72,6 @@ def variate_proba(model, pivot, var):
     data = sorted(probas.items(), reverse=True)
     for proba, data in sorted(probas.items(), reverse=True):
         t = (4-log(proba,2))/3
-        print(t)
         plt.plot(data, label=f'table sampling p=1/{proba}', color=((1-t)*1.0+t*186/255, (1-t)*137/255, (1-t)*137/255))
     plt.xlabel('Number of samples')
     plt.ylabel('p-value')

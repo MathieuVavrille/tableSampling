@@ -1,27 +1,35 @@
 package org.mvavrill.tableSampling.memoizedData;
 
-/**
- * A class used to store data about the number of solutions of fzn models (optimisation models), under different bound on the objective.
- * It will then be used to store the data in a JSON file.
- *
- * @author Mathieu Vavrille
- */
+import java.util.List;
+
 public class MemoizedData {
-  private int bound;
-  private int nbSolutions;
+  private Long timeToOptimal;
+  private Long timeToProof; // redundant for sat problems
+  private Boolean isSat;
+  private List<MemoizedBound> bounds;
 
   public MemoizedData() {}
 
-  public MemoizedData(final int bound, final int nbSolutions) {
-    this.bound = bound;
-    this.nbSolutions = nbSolutions;
+  public MemoizedData(final Long timeToOptimal, final Long timeToProof, final Boolean isSat, final List<MemoizedBound> bounds) {
+    this.timeToOptimal = timeToOptimal;
+    this.timeToProof = timeToProof;
+    this.isSat = isSat;
+    this.bounds = bounds;
   }
 
-  public int getBound() {
-    return bound;
+  public Long getTimeToOptimal() {
+    return timeToOptimal;
   }
 
-  public int getNbSolutions() {
-    return nbSolutions;
+  public Long getTimeToProof() {
+    return timeToProof;
+  }
+
+  public Boolean getIsSat() {
+    return isSat;
+  }
+
+  public List<MemoizedBound> getBounds() {
+    return bounds;
   }
 }

@@ -1,4 +1,7 @@
 package org.mvavrill.tableSampling.models;
+
+import org.mvavrill.tableSampling.zpz.ZpZ;
+
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.BoolVar;
 import org.chocosolver.solver.variables.IntVar;
@@ -10,9 +13,15 @@ import org.chocosolver.solver.variables.IntVar;
  */
 public class ToyOr extends ModelGenerator {
 
+  protected final ZpZ zpz;
+
+  public ToyOr() {
+    zpz = new ZpZ(ZpZ.getPrimeGreaterThan(this.getMaxRange()));
+  }
+
   @Override
   public ModelAndVars generateModelAndVars() {
-    Model model = new Model("ToyOr");
+    Model model = createModel("ToyOr");
     BoolVar x = model.boolVar("x");
     BoolVar y = model.boolVar("y");
     model.or(x,y).post();
@@ -22,5 +31,10 @@ public class ToyOr extends ModelGenerator {
   @Override
   public String getName() {
     return "ToyOr";
+  }
+
+  @Override
+  public ZpZ getZpZ() {
+    return zpz;
   }
 }

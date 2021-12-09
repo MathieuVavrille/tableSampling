@@ -7,6 +7,7 @@ import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.search.limits.SolutionCounter;
+import org.chocosolver.solver.search.limits.TimeCounter;
 import org.chocosolver.solver.search.strategy.Search;
 import org.chocosolver.solver.search.strategy.selectors.values.IntValueSelector;
 import org.chocosolver.solver.search.strategy.selectors.values.IntDomainRandom;
@@ -32,16 +33,17 @@ public class RandomStrategySampling extends Sampler {
   }
 
   @Override
-  public Solution sample() {
-    List<Solution> solutions = sampleMultiple(nbSolutionSearched);
-    return solutions.get(random.nextInt(solutions.size()));
+  public Solution sample(final long maxTime) {
+    List<Solution> solutions = sampleMultiple(1, maxTime);
+    return solutions.size() == 0 ? null : solutions.get(random.nextInt(solutions.size()));
   }
   
   @Override
-  public List<Solution> sampleMultiple(final int nbSamples) {
+  public List<Solution> sampleMultiple(final int nbSamples, final long maxTime) {
     ModelAndVars modelAndVars = modGen.generateModelAndVars();
     IntVar[] vars = modelAndVars.getVars();
-    Solver solver = modelAndVars.getModel().getSolver();
+    final Model model = modelAndVars.getModel();
+    final Solver solver = model.getSolver();
     
     // Bug fix for the random strategy
     IntValueSelector value = new IntDomainRandom(random.nextLong());
@@ -56,7 +58,7 @@ public class RandomStrategySampling extends Sampler {
     solver.setSearch(Search.intVarSearch(new Random<>(random.nextLong()), selector, vars));
     //solver.setSearch(Search.randomSearch(model.retrieveIntVars(true), random.nextLong())); // Bug with the random
     solver.setRestartOnSolutions();
-    List<Solution> solutions = solver.findAllSolutions(new SolutionCounter(modelAndVars.getModel(), nbSamples));;
+    List<Solution> solutions = solver.findAllSolutions(new SolutionCounter(model, nbSamples), new TimeCounter(model, nbSamples*maxTime)); // Not super cool...
     return solutions;
   }
 

@@ -2,6 +2,7 @@ package org.mvavrill.tableSampling.models;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
+import org.mvavrill.tableSampling.zpz.ZpZ;
 
 /**
  * The Golombm Ruler model. Taken from the examples of chocosolver
@@ -9,13 +10,15 @@ import org.chocosolver.solver.variables.IntVar;
 public class GolombRuler extends ModelGenerator {
 
   private final int m;
+  protected final ZpZ zpz;
   
   public GolombRuler(final int m) {
     this.m = m;
+    zpz = new ZpZ(ZpZ.getPrimeGreaterThan(this.getMaxRange()));
   }
 
   public ModelAndVars generateModelAndVars() {
-    Model model = new Model("GolombRuler");
+    Model model = createModel("GolombRuler");
     IntVar[] ticks = model.intVarArray("a", m, 0, (m < 31) ? (1 << (m + 1)) - 1 : 9999, false);
     model.arithm(ticks[0], "=", 0).post();
     for (int i = 0; i < m - 1; i++) {
@@ -44,5 +47,10 @@ public class GolombRuler extends ModelGenerator {
   @Override
   public String getName() {
     return "GolombRuler-" + m;
+  }
+  
+  @Override
+  public ZpZ getZpZ() {
+    return zpz;
   }
 }

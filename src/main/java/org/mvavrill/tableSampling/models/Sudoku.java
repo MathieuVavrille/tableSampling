@@ -1,26 +1,28 @@
 package org.mvavrill.tableSampling.models;
 
+import org.mvavrill.tableSampling.zpz.ZpZ;
+
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Cause;
 import org.chocosolver.solver.variables.IntVar;
 import org.chocosolver.util.tools.ArrayUtils;
 
-import org.javatuples.Pair;
-
 public class Sudoku extends ModelGenerator {
 
   private final int n;
   private final int nbFixed;
+  protected final ZpZ zpz;
 
   /** n is the size of a small square. The total grid has size n^4. Usual sudokus have n = 3*/
   public Sudoku(final int n, final int nbFixed) {
     this.n = n;
     this.nbFixed = nbFixed;
+    zpz = new ZpZ(ZpZ.getPrimeGreaterThan(this.getMaxRange()));
   }
 
   @Override
   public ModelAndVars generateModelAndVars() {
-    Model model = new Model("Sudoku");
+    Model model = createModel("Sudoku");
     IntVar[][] vars = model.intVarMatrix("x", n*n, n*n, 1, n*n);
     for (int k = 0; k < n*n; k++) {
       model.allDifferent(vars[k], "AC").post();
@@ -50,4 +52,10 @@ public class Sudoku extends ModelGenerator {
   public String getName() {
     return n + "-Sudoku";
   }
+
+  @Override
+  public ZpZ getZpZ() {
+    return zpz;
+  }
+  
 }

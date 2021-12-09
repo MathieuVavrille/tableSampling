@@ -4,17 +4,12 @@ import org.mvavrill.tableSampling.models.ModelGenerator;
 import org.mvavrill.tableSampling.models.ModelAndVars;
 import org.mvavrill.tableSampling.sampler.Sampler;
 
-import javax.swing.JFrame;
-import javax.swing.WindowConstants;
-import java.awt.Dimension;
-
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.Solver;
 import org.chocosolver.solver.Solution;
 import org.chocosolver.solver.variables.IntVar;
 
 import org.apache.commons.math3.stat.inference.TestUtils;
-import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import java.util.Random;
 import java.util.Map;

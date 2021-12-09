@@ -1,5 +1,7 @@
 package org.mvavrill.tableSampling.models;
 
+import org.mvavrill.tableSampling.zpz.ZpZ;
+
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.constraints.extension.Tuples;
 import org.chocosolver.solver.variables.IntVar;
@@ -29,9 +31,10 @@ public class Megane extends ModelGenerator {
 
   private final Map<Integer, Pair<Integer,String>> variables;
   private final List<Pair<Tuples, List<Integer>> > tables;
+  private final ZpZ zpz;
 
-  public Megane() {
-    File inputFile = new File("csplibmodels/megane.xml");
+  public Megane(String fileName) {
+    File inputFile = new File("models/megane/" + fileName + ".xml");
     Element mainXmlElement = getMainXmlElement(inputFile);
     // Domains
     final NodeList xmlDomains = ((Element) mainXmlElement.getElementsByTagName("domains").item(0)).getElementsByTagName("domain");
@@ -61,6 +64,7 @@ public class Megane extends ModelGenerator {
       Element xmlTable = (Element) xmlTables.item(tableId);
       tables.add(new Pair<Tuples, List<Integer>>(allTuples.get(xmlTable.getAttribute("reference")), Arrays.stream(xmlTable.getAttribute("scope").split(" ")).map(i -> Integer.parseInt(i)).collect(Collectors.toList())));
     }
+    zpz = new ZpZ(ZpZ.getPrimeGreaterThan(this.getMaxRange()));
   }
 
   private Element getMainXmlElement(final File file) {
@@ -92,7 +96,7 @@ public class Megane extends ModelGenerator {
 
   @Override
   public ModelAndVars generateModelAndVars() {
-    Model model = new Model();
+    Model model = createModel("Megane");
     Map<Integer, IntVar> intVars = variables.entrySet().stream()
     .collect(Collectors.toMap(Map.Entry::getKey, es -> generateIntVar(model, es.getValue().getValue0(), es.getValue().getValue1(), "x" + es.getKey())));
     tables.stream()
@@ -115,5 +119,10 @@ public class Megane extends ModelGenerator {
   @Override
   public String getName() {
     return "Megane";
+  }
+
+  @Override
+  public ZpZ getZpZ() {
+    return zpz;
   }
 }

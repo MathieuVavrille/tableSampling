@@ -1,9 +1,21 @@
 package org.mvavrill.tableSampling.models;
 
+import org.mvavrill.tableSampling.zpz.ZpZ;
+import org.mvavrill.tableSampling.zpz.ZpZEquation;
+
 import org.chocosolver.solver.Model;
+import org.chocosolver.solver.constraints.Constraint;
+import org.chocosolver.solver.constraints.extension.Tuples;
+import org.chocosolver.solver.expression.discrete.arithmetic.ArExpression;
 import org.chocosolver.solver.variables.IntVar;
 
+import org.javatuples.Pair;
 import org.javatuples.Triplet;
+
+import java.util.Random;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 /**
  * The abstract class to wrap all the models.
@@ -18,12 +30,20 @@ public abstract class ModelGenerator {
   public abstract ModelAndVars generateModelAndVars();
 
   public abstract String getName();
+  
+  public abstract ZpZ getZpZ();
 
+  protected Model createModel(final String modelName) {
+    return new Model("");//, new DefaultSettings().setEnvironmentHistorySimulationCondition(() -> false));
+  }
+  
   /**
    * Get the maximum range of the variables, i.e. max_x UB(x)-LB(x)
    */
   public int getMaxRange() {
-    IntVar[] vars = this.generateModelAndVars().getVars();
+    ModelAndVars modelAndVars = this.generateModelAndVars();
+    Model model = modelAndVars.getModel();
+    IntVar[] vars = modelAndVars.getVars();
     int maxRange = vars[0].getUB() - vars[0].getLB();
     for (int i = 1; i < vars.length; i++) {
       if (vars[i].getUB() - vars[i].getLB() > maxRange)

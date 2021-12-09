@@ -2,6 +2,7 @@ package org.mvavrill.tableSampling.models;
 
 import org.chocosolver.solver.Model;
 import org.chocosolver.solver.variables.IntVar;
+import org.mvavrill.tableSampling.zpz.ZpZ;
 
 import static java.util.Arrays.fill;
 import static org.chocosolver.solver.search.strategy.Search.inputOrderLBSearch;
@@ -12,14 +13,16 @@ import static org.chocosolver.solver.search.strategy.Search.inputOrderLBSearch;
 public class MagicSquare extends ModelGenerator {
   
   private final int n;
+  private final ZpZ zpz;
 
   public MagicSquare(final int n) {
     this.n = n;
+    zpz = new ZpZ(ZpZ.getPrimeGreaterThan(this.getMaxRange()));
   }
 
   @Override
   public ModelAndVars generateModelAndVars() {
-    Model model = new Model();
+    Model model = createModel("MagicSquare");
     int ms = n * (n * n + 1) / 2;
     IntVar[][] matrix = new IntVar[n][n];
     IntVar[][] invMatrix = new IntVar[n][n];
@@ -58,5 +61,10 @@ public class MagicSquare extends ModelGenerator {
   @Override
   public String getName() {
     return "MagicSquare-" + n;
+  }
+
+  @Override
+  public ZpZ getZpZ() {
+    return zpz;
   }
 }

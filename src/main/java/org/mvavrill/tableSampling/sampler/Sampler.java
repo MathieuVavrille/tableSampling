@@ -22,7 +22,11 @@ public abstract class Sampler {
     this.random = random;
   }
 
-  public abstract Solution sample();
+  public Solution sample() {
+    return sample(Long.MAX_VALUE);
+  }
+
+  public abstract Solution sample(final long maxTime);
 
   public abstract String getSamplerName();
 
@@ -30,10 +34,10 @@ public abstract class Sampler {
     return modGen.getName();
   }
   
-  public List<Solution> sampleMultiple(final int nbSamples) {
+  public List<Solution> sampleMultiple(final int nbSamples, final long maxTime) {
     List<Solution> sols = new ArrayList<Solution>();
     for (int i = 0; i < nbSamples; i++)
-      sols.add(sample());
+      sols.add(sample(maxTime));
     return sols;
   }
   
