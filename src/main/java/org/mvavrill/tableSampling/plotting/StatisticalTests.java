@@ -75,7 +75,7 @@ public class StatisticalTests {
   public double[] getAverageCounts(final int nbSolutions, final int nbSamples) { 
     double[] solutionAverage = new double[nbSolutions];
     for (int i = 0; i < nbSolutions; i++)
-      solutionAverage[i] = (double)nbSolutions / nbSamples;
+      solutionAverage[i] = (double) nbSamples/ nbSolutions;
     return solutionAverage;
   }
 
